@@ -1,0 +1,33 @@
+name: deploy_on_tag
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  test_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v1
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: install
+        run: npm install
+
+      - name: tests
+        run: CICD=true npm run test
+        env:
+          ASK_AUTH_CHALLENGE_EXAMPLE_EMAIL: ${{ secrets.ASK_AUTH_CHALLENGE_EXAMPLE_EMAIL }}
+          ASK_AUTH_CHALLENGE_EXAMPLE_DIRECTORY_UUID: ${{ secrets.ASK_AUTH_CHALLENGE_EXAMPLE_DIRECTORY_UUID }}
+          ASK_AUTH_CHALLENGE_EXAMPLE_CLIENT_TOKEN: ${{ secrets.ASK_AUTH_CHALLENGE_EXAMPLE_CLIENT_TOKEN }}
+
+      - name: publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
