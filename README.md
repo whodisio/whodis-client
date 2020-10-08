@@ -3,7 +3,7 @@
 ![ci_on_commit](https://github.com/whodisio/whodis-client/workflows/ci_on_commit/badge.svg)
 ![deploy_on_tag](https://github.com/whodisio/whodis-client/workflows/deploy_on_tag/badge.svg)
 
-A simple client to make Auth for your users a breeze, even in in clientside/insecure environments
+A simple client for easy, typed interactions with the whodis.io api in clientside/insecure environments
 
 ---
 
