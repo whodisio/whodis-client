@@ -11,7 +11,7 @@ describe('refreshToken', () => {
       throw new Error('should not reach here');
     } catch (error) {
       expect(error).toBeInstanceOf(WhodisBadRequestError);
-      expect(error.message).toContain('jwt.aud is invalid'); // since it doesn't have a real audience on that token
+      expect(error.message).toContain('jwt.dir is invalid'); // since it doesn't have a real audience on that token
     }
   });
 });

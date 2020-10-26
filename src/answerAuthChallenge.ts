@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import { detectTargetEnvironment } from './environment/detectTargetEnvironment';
 import { findWhodisBadRequestErrorInAxiosError } from './WhodisBadRequestError';
 
 export const answerAuthChallenge = async ({
@@ -9,8 +10,9 @@ export const answerAuthChallenge = async ({
   challengeUuid: string;
   challengeAnswer: string;
 }): Promise<{ token: string }> => {
+  const target = detectTargetEnvironment();
   try {
-    const { data } = await axios.post('https://api.whodis.io/user/challenge/answer', { challengeUuid, challengeAnswer });
+    const { data } = await axios.post('https://api.whodis.io/user/challenge/answer', { challengeUuid, challengeAnswer, target });
     return { token: data.token };
   } catch (error) {
     const whodisBadRequestError = findWhodisBadRequestErrorInAxiosError({ axiosError: error });

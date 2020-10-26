@@ -24,7 +24,7 @@ import { askAuthChallenge, ChallengeGoal, ChallengeType, ContactMethodType } fro
 
 const { challengeUuid } = await askAuthChallenge({
   directoryUuid, // specify which directory you want to to challenge the user for (note: users only exist in the context of a specific directory)
-  clientToken, // specify which credential gives you access to this directory (note: this is a public key and can be used in the browser / insecure environments)
+  clientUuid, // specify which credential gives you access to this directory (note: this is a public key and can be used in the browser / insecure environments)
   goal: ChallengeGoal.SIGNUP, // alternatively, you could request a challenge with a goal of `LOGIN` if the account already exists
   type: ChallengeType.CONFIRMATION_CODE,
   contactMethod: {

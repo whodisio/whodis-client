@@ -16,13 +16,13 @@ export enum ContactMethodType {
 
 export const askAuthChallenge = async ({
   directoryUuid,
-  clientToken,
+  clientUuid,
   goal,
   type,
   contactMethod,
 }: {
   directoryUuid: string;
-  clientToken: string;
+  clientUuid: string;
   goal: ChallengeGoal;
   type: ChallengeType;
   contactMethod: {
@@ -31,7 +31,7 @@ export const askAuthChallenge = async ({
   };
 }): Promise<{ challengeUuid: string }> => {
   try {
-    const { data } = await axios.post('https://api.whodis.io/user/challenge/ask', { directoryUuid, clientToken, goal, type, contactMethod });
+    const { data } = await axios.post('https://api.whodis.io/user/challenge/ask', { directoryUuid, clientUuid, goal, type, contactMethod });
     return { challengeUuid: data.challengeUuid };
   } catch (error) {
     const whodisBadRequestError = findWhodisBadRequestErrorInAxiosError({ axiosError: error });
