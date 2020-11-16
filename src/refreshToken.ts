@@ -13,7 +13,14 @@ export const refreshToken = async ({ token }: { token: string }): Promise<{ toke
 
   // if token is still refreshable, try and refresh it
   try {
-    const { data } = await axios.post('https://api.whodis.io/user/token/refresh', { target }, { headers: { authorization: token } });
+    const { data } = await axios.post(
+      'https://api.whodis.io/user/token/refresh',
+      { target },
+      {
+        headers: { authorization: token },
+        withCredentials: true, // with credentials to support receiving cookies; required for web env
+      },
+    );
     return { token: data.token };
   } catch (error) {
     const whodisBadRequestError = findWhodisBadRequestErrorInAxiosError({ axiosError: error });

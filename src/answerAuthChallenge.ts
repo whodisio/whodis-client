@@ -12,7 +12,11 @@ export const answerAuthChallenge = async ({
 }): Promise<{ token: string }> => {
   const target = detectTargetEnvironment();
   try {
-    const { data } = await axios.post('https://api.whodis.io/user/challenge/answer', { challengeUuid, challengeAnswer, target });
+    const { data } = await axios.post(
+      'https://api.whodis.io/user/challenge/answer',
+      { challengeUuid, challengeAnswer, target },
+      { withCredentials: true },
+    );
     return { token: data.token };
   } catch (error) {
     const whodisBadRequestError = findWhodisBadRequestErrorInAxiosError({ axiosError: error });
