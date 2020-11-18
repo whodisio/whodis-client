@@ -1,6 +1,8 @@
 import axios from 'axios';
 
+import { assertTokenLooksUsableForTargetEnv } from './environment/assertTokenLooksUsableForTargetEnv';
 import { detectTargetEnvironment } from './environment/detectTargetEnvironment';
+import { getDomainOfApiForEnv } from './environment/getDomainOfApiForEnv';
 import { findWhodisBadRequestErrorInAxiosError } from './WhodisBadRequestError';
 
 export const answerAuthChallenge = async ({
@@ -11,13 +13,16 @@ export const answerAuthChallenge = async ({
   challengeAnswer: string;
 }): Promise<{ token: string }> => {
   const target = detectTargetEnvironment();
+  const hostname = getDomainOfApiForEnv({ target });
   try {
     const { data } = await axios.post(
-      'https://api.whodis.io/user/challenge/answer',
+      `https://${hostname}/user/challenge/answer`,
       { challengeUuid, challengeAnswer, target },
-      { withCredentials: true },
+      { withCredentials: true }, // with credentials to support receiving cookies; required for web env
     );
-    return { token: data.token };
+    const { token } = data;
+    await assertTokenLooksUsableForTargetEnv({ target, token });
+    return { token };
   } catch (error) {
     const whodisBadRequestError = findWhodisBadRequestErrorInAxiosError({ axiosError: error });
     if (whodisBadRequestError) throw whodisBadRequestError; // if we found its a whodisBadRequestError, throw it

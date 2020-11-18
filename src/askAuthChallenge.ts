@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { detectTargetEnvironment } from './environment/detectTargetEnvironment';
+import { getDomainOfApiForEnv } from './environment/getDomainOfApiForEnv';
 import { findWhodisBadRequestErrorInAxiosError } from './WhodisBadRequestError';
 
 export enum ChallengeGoal {
@@ -30,8 +32,10 @@ export const askAuthChallenge = async ({
     address: string;
   };
 }): Promise<{ challengeUuid: string }> => {
+  const target = detectTargetEnvironment();
+  const hostname = getDomainOfApiForEnv({ target });
   try {
-    const { data } = await axios.post('https://api.whodis.io/user/challenge/ask', { directoryUuid, clientUuid, goal, type, contactMethod });
+    const { data } = await axios.post(`https://${hostname}/user/challenge/ask`, { directoryUuid, clientUuid, goal, type, contactMethod });
     return { challengeUuid: data.challengeUuid };
   } catch (error) {
     const whodisBadRequestError = findWhodisBadRequestErrorInAxiosError({ axiosError: error });
