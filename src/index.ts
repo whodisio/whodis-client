@@ -8,4 +8,4 @@ export { isTokenExpired } from './isTokenExpired';
 // errors and types
 export { WhodisBadRequestError } from './WhodisBadRequestError';
 export { WhodisAuthTokenClaims } from './WhodisAuthTokenClaims';
-export { ChallengeGoal, ContactMethodType } from './askAuthChallenge';
+export { ChallengeGoal, ChallengeType, ContactMethodType } from './askAuthChallenge';
