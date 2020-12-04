@@ -1,4 +1,5 @@
-import { fromUnixTime, isAfter } from 'date-fns';
+import fromUnixTime from 'date-fns/fromUnixTime';
+import isAfter from 'date-fns/isAfter';
 import { getUnauthedClaims } from 'simple-jwt-auth';
 
 import { WhodisAuthTokenClaims } from './WhodisAuthTokenClaims';
