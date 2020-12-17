@@ -1,6 +1,6 @@
 {
   "name": "whodis-client",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "A simple client for easy, typed interactions with the whodis.io api in clientside/insecure environments",
   "author": "UladKasach @uladkasach",
   "license": "MIT",
