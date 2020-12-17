@@ -62,6 +62,6 @@
   "dependencies": {
     "axios": "^0.19.0",
     "parse-domain": "^3.0.3",
-    "simple-jwt-auth": "^0.5.7"
+    "simple-jwt-auth": "^0.5.8"
   }
 }
