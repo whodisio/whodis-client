@@ -24,7 +24,7 @@ export class UnusableTokenDetectedError extends Error {
  *
  * TODO: reference a wiki for each error that documents the solution
  */
-export const assertTokenLooksUsableForTargetEnv = ({ token, target }: { token: string; target: TargetEnvironment }) => {
+export const assertTokenLooksUsableForTargetEnv = async ({ token, target }: { token: string; target: TargetEnvironment }) => {
   // for native env
   if (target === TargetEnvironment.NATIVE) {
     // if its a signature redacted token, its not usable
@@ -44,8 +44,8 @@ export const assertTokenLooksUsableForTargetEnv = ({ token, target }: { token: s
         target,
       });
     // if the audience of the token is not the same site as this website, it will fail CSRF checks
-    const tokenAudDomain = getDomainFromUri(getUnauthedClaims({ token }).aud);
-    const currentDomain = getCurrentDomain();
+    const tokenAudDomain = await getDomainFromUri(getUnauthedClaims({ token }).aud);
+    const currentDomain = await getCurrentDomain();
     if (tokenAudDomain !== currentDomain)
       throw new UnusableTokenDetectedError({
         reason: `Domain of jwt audience !== current domain, which means it cant be used for authentication by this site, due to CSRF checks ('${tokenAudDomain}' !== '${currentDomain}')`,

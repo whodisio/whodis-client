@@ -14,7 +14,7 @@ export const answerAuthChallenge = async ({
   challengeAnswer: string;
 }): Promise<{ token: string }> => {
   const target = detectTargetEnvironment();
-  const hostname = getDomainOfApiForEnv({ target });
+  const hostname = await getDomainOfApiForEnv({ target });
   try {
     const { data } = await axios.post(
       `https://${hostname}/user/challenge/answer`,

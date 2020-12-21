@@ -34,7 +34,7 @@ export const askAuthChallenge = async ({
   };
 }): Promise<{ challengeUuid: string }> => {
   const target = detectTargetEnvironment();
-  const hostname = getDomainOfApiForEnv({ target });
+  const hostname = await getDomainOfApiForEnv({ target });
   try {
     const { data } = await axios.post(`https://${hostname}/user/challenge/ask`, { directoryUuid, clientUuid, goal, type, contactMethod });
     return { challengeUuid: data.challengeUuid };

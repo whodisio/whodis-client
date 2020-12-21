@@ -13,7 +13,7 @@ export const refreshToken = async ({ token: tokenToRefresh }: { token: string })
 
   // determine target environment
   const target = detectTargetEnvironment();
-  const hostname = getDomainOfApiForEnv({ target });
+  const hostname = await getDomainOfApiForEnv({ target });
 
   // if token is still refreshable, try and refresh it
   try {
