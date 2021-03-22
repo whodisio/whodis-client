@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import uuid from 'uuid';
 
 import { askAuthChallenge, ChallengeGoal, ChallengeType, ContactMethodType } from './askAuthChallenge';
-import { WhodisBadRequestError } from './WhodisBadRequestError';
+import { WhodisBadRequestError, WhodisAuthGoalError } from './WhodisBadRequestError';
 
 dotenv.config();
 
@@ -25,6 +25,30 @@ describe('askAuthChallenge', () => {
       expect(error.message).toContain('clientUuid does not provide access to this directory');
     }
   });
+  it('should throw a WhodisAuthGoalError when a non-user attempts to login', async () => {
+    // grab directory credentials and real contact method to send from env variables; they're not sensitive, but doesn't feel right to hardcode :shrug:
+    const directoryUuid = process.env.ASK_AUTH_CHALLENGE_EXAMPLE_DIRECTORY_UUID!;
+    expect(typeof directoryUuid).toEqual('string'); // sanity check
+    const clientUuid = process.env.ASK_AUTH_CHALLENGE_EXAMPLE_CLIENT_TOKEN!;
+    expect(typeof clientUuid).toEqual('string'); // sanity check
+
+    // ask the challenge
+    try {
+      await askAuthChallenge({
+        directoryUuid,
+        clientUuid,
+        goal: ChallengeGoal.LOGIN,
+        type: ChallengeType.CONFIRMATION_CODE,
+        contactMethod: {
+          type: ContactMethodType.EMAIL,
+          address: `${uuid()}@gmail.com`,
+        },
+      });
+    } catch (error) {
+      expect(error).toBeInstanceOf(WhodisAuthGoalError);
+      expect(error.message).toContain('user does not exist in directory for contact method, cant login');
+    }
+  });
   it('should be able to get a real auth challenge successfully', async () => {
     // grab directory credentials and real contact method to send from env variables; they're not sensitive, but doesn't feel right to hardcode :shrug:
     const directoryUuid = process.env.ASK_AUTH_CHALLENGE_EXAMPLE_DIRECTORY_UUID!;
@@ -36,9 +60,9 @@ describe('askAuthChallenge', () => {
 
     // ask the challenge
     const { challengeUuid } = await askAuthChallenge({
-      directoryUuid, // random uuid -> api will respond with bad request
-      clientUuid, // random string -> api will respond with bad request
-      goal: ChallengeGoal.LOGIN,
+      directoryUuid,
+      clientUuid,
+      goal: ChallengeGoal.SIGNUP,
       type: ChallengeType.CONFIRMATION_CODE,
       contactMethod: {
         type: ContactMethodType.EMAIL,

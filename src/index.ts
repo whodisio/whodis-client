@@ -6,6 +6,7 @@ export { refreshToken } from './refreshToken';
 export { isTokenExpired } from './isTokenExpired';
 
 // errors and types
-export { WhodisBadRequestError } from './WhodisBadRequestError';
+export { WhodisBadRequestError, isWhodisBadRequestError, WhodisAuthGoalError, isWhodisAuthGoalError } from './WhodisBadRequestError';
+export { WhodisProxyNotSetupError } from './WhodisProxyNotSetupError';
 export { WhodisAuthTokenClaims } from './WhodisAuthTokenClaims';
 export { ChallengeGoal, ChallengeType, ContactMethodType } from './askAuthChallenge';
