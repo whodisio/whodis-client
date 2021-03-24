@@ -63,9 +63,9 @@
     "uuid": "^3.3.3"
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "simple-in-memory-cache": "^0.1.0",
-    "simple-jwt-auth": "^0.7.0",
+    "simple-jwt-auth": "^0.7.1",
     "with-simple-caching": "^0.1.1"
   }
 }
