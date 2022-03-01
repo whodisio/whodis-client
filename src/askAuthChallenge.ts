@@ -6,8 +6,25 @@ import { findWhodisBadRequestErrorInAxiosError } from './WhodisBadRequestError';
 import { findWhodisProxyNotSetupErrorInAxiosError } from './WhodisProxyNotSetupError';
 
 export enum ChallengeGoal {
-  'SIGNUP' = 'SIGNUP',
-  'LOGIN' = 'LOGIN',
+  /**
+   * create new user with a new contact-method
+   */
+  SIGNUP = 'SIGNUP',
+
+  /**
+   * access an existing user with an existing contact-method
+   */
+  LOGIN = 'LOGIN',
+
+  /**
+   * add a new contact-method to an existing, authenticated user
+   */
+  ADD = 'ADD',
+
+  /**
+   * prove control of a contact-method, without associating to a user
+   */
+  PROVE = 'PROVE',
 }
 export enum ChallengeType {
   CONFIRMATION_CODE = 'CONFIRMATION_CODE',
