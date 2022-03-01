@@ -12,7 +12,12 @@ export const answerAuthChallenge = async ({
 }: {
   challengeUuid: string;
   challengeAnswer: string;
-}): Promise<{ token: string }> => {
+}): Promise<{
+  /**
+   * returns `null` if the challenge was a `PROVE` challenge
+   */
+  token: string | null;
+}> => {
   const target = detectTargetEnvironment();
   const hostname = await getDomainOfApiForEnv({ target });
   try {
@@ -22,7 +27,7 @@ export const answerAuthChallenge = async ({
       { withCredentials: true }, // with credentials to support receiving cookies; required for web env
     );
     const { token } = data;
-    await assertTokenLooksUsableForTargetEnv({ target, token });
+    if (token) await assertTokenLooksUsableForTargetEnv({ target, token });
     return { token };
   } catch (error) {
     // catch and hydrate whodis bad request errors, if found
