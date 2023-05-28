@@ -22,6 +22,8 @@ const hasWhodisAuthGoalErrorMessage = (error: WhodisBadRequestError): boolean =>
   const messagesToLookFor = [
     'user does not exist in directory for contact method, cant login',
     'user already exists in directory for contact method, cant signup',
+    'contact method already exists in directory for another user, cant add',
+    'request was not issued with authorization from any user, cant add',
   ];
   return messagesToLookFor.some((message) => error.message.includes(message));
 };

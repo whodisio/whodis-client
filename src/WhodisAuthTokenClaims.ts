@@ -15,6 +15,11 @@ export interface WhodisAuthTokenClaims {
   aud: string;
 
   /**
+   * a unique and random identifier for this token (i.e., a uuidv4)
+   */
+  jti: string;
+
+  /**
    * when this token was issued
    */
   iat: number;
