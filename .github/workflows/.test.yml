@@ -18,6 +18,12 @@ on:
       aws-secret-access-key:
         required: false
         description: required credentials to authenticate with aws the aws account against which to run the tests
+      ASK_AUTH_CHALLENGE_EXAMPLE_EMAIL:
+        required: true
+      ASK_AUTH_CHALLENGE_EXAMPLE_DIRECTORY_UUID:
+        required: true
+      ASK_AUTH_CHALLENGE_EXAMPLE_CLIENT_TOKEN:
+        required: true
 
 jobs:
   install:
@@ -203,6 +209,10 @@ jobs:
 
       - name: test:integration
         run: npm run test:integration
+        env:
+          ASK_AUTH_CHALLENGE_EXAMPLE_EMAIL: ${{ secrets.ASK_AUTH_CHALLENGE_EXAMPLE_EMAIL }}
+          ASK_AUTH_CHALLENGE_EXAMPLE_DIRECTORY_UUID: ${{ secrets.ASK_AUTH_CHALLENGE_EXAMPLE_DIRECTORY_UUID }}
+          ASK_AUTH_CHALLENGE_EXAMPLE_CLIENT_TOKEN: ${{ secrets.ASK_AUTH_CHALLENGE_EXAMPLE_CLIENT_TOKEN }}
 
   test-acceptance-locally:
     runs-on: ubuntu-latest

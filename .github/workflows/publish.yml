@@ -12,6 +12,10 @@ concurrency:
 jobs:
   test:
     uses: ./.github/workflows/.test.yml
+    with:
+      ASK_AUTH_CHALLENGE_EXAMPLE_EMAIL: ${{ secrets.ASK_AUTH_CHALLENGE_EXAMPLE_EMAIL }}
+      ASK_AUTH_CHALLENGE_EXAMPLE_DIRECTORY_UUID: ${{ secrets.ASK_AUTH_CHALLENGE_EXAMPLE_DIRECTORY_UUID }}
+      ASK_AUTH_CHALLENGE_EXAMPLE_CLIENT_TOKEN: ${{ secrets.ASK_AUTH_CHALLENGE_EXAMPLE_CLIENT_TOKEN }}
 
   publish:
     uses: ./.github/workflows/.publish-npm.yml
