@@ -9,4 +9,13 @@ export { isTokenExpired } from './isTokenExpired';
 export { WhodisBadRequestError, isWhodisBadRequestError, WhodisAuthGoalError, isWhodisAuthGoalError } from './WhodisBadRequestError';
 export { WhodisProxyNotSetupError } from './WhodisProxyNotSetupError';
 export { WhodisAuthTokenClaims } from './WhodisAuthTokenClaims';
-export { ChallengeGoal, ChallengeType, ContactMethodType } from './askAuthChallenge';
+export {
+  ChallengeGoal,
+  ChallengeType,
+  ContactMethodChannel,
+  OidcIdentityProvider,
+  ContactMethod,
+  ChallengeTypeDetails,
+  ChallengeTypeOidcAuthcodeDetails,
+  ChallengeTypeConfirmationCodeDetails,
+} from './askAuthChallenge';

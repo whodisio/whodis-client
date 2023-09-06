@@ -4,7 +4,7 @@ import { assertTokenLooksUsableForTargetEnv } from './environment/assertTokenLoo
 import { detectTargetEnvironment } from './environment/detectTargetEnvironment';
 import { getDomainOfApiForEnv } from './environment/getDomainOfApiForEnv';
 import { isTokenRefreshable } from './isTokenRefreshable';
-import { findWhodisBadRequestErrorInAxiosError, WhodisBadRequestError } from './WhodisBadRequestError';
+import { findWhodisBadRequestErrorInAxiosError, isAxiosError, WhodisBadRequestError } from './WhodisBadRequestError';
 import { findWhodisProxyNotSetupErrorInAxiosError } from './WhodisProxyNotSetupError';
 
 export const refreshToken = async ({ token: tokenToRefresh }: { token: string }): Promise<{ token: string }> => {
@@ -29,6 +29,9 @@ export const refreshToken = async ({ token: tokenToRefresh }: { token: string })
     await assertTokenLooksUsableForTargetEnv({ target, token });
     return { token };
   } catch (error) {
+    if (!(error instanceof Error)) throw error;
+    if (!isAxiosError(error)) throw error;
+
     // catch and hydrate whodis bad request errors, if found
     const whodisBadRequestError = findWhodisBadRequestErrorInAxiosError({ axiosError: error });
     if (whodisBadRequestError) throw whodisBadRequestError; // if we found its a whodisBadRequestError, throw it

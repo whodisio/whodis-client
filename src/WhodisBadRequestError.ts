@@ -1,6 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { AxiosError } from 'axios';
 
+export const isAxiosError = (error: Error): error is AxiosError => !!(error as any).isAxiosError;
+
 /**
  * an error from Whodis which specifies that it received your request successfully, but decided that it was invalid
  */

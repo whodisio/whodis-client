@@ -6,7 +6,7 @@ import { ReservedDomainError } from './web/getDomainFromUri';
  * web environment has special considerations, because it uses cookies as storage mechanism
  *
  * if targeting native, always `api.whodis.io`
- * if targeting web, then always `auth.${websiteDomain}` (i.e., a subdomain of current site) (seamlessly supported by whodis domain proxies)
+ * if targeting web, then always `auth.${domain}` (i.e., a subdomain of current site) (seamlessly supported by whodis domain proxies)
  */
 export const getDomainOfApiForEnv = async ({ target }: { target: TargetEnvironment }) => {
   // native is always the normal api address
@@ -16,7 +16,7 @@ export const getDomainOfApiForEnv = async ({ target }: { target: TargetEnvironme
   if (target === TargetEnvironment.WEB) {
     try {
       const domain = await getCurrentDomain();
-      return `auth.${domain}`; // whodis provisions all domain proxies as `whodis.${domain}`
+      return `auth.${domain}`; // whodis provisions all domain proxies as `auth.${domain}`
     } catch (error) {
       if (error instanceof ReservedDomainError) {
         // if the error is due to this being a "reserved domain", we can suggest a solution to the user

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { assertTokenLooksUsableForTargetEnv } from './environment/assertTokenLooksUsableForTargetEnv';
 import { detectTargetEnvironment } from './environment/detectTargetEnvironment';
 import { getDomainOfApiForEnv } from './environment/getDomainOfApiForEnv';
-import { findWhodisBadRequestErrorInAxiosError } from './WhodisBadRequestError';
+import { findWhodisBadRequestErrorInAxiosError, isAxiosError } from './WhodisBadRequestError';
 import { findWhodisProxyNotSetupErrorInAxiosError } from './WhodisProxyNotSetupError';
 
 export const answerAuthChallenge = async ({
@@ -30,6 +30,9 @@ export const answerAuthChallenge = async ({
     if (token) await assertTokenLooksUsableForTargetEnv({ target, token });
     return { token };
   } catch (error) {
+    if (!(error instanceof Error)) throw error;
+    if (!isAxiosError(error)) throw error;
+
     // catch and hydrate whodis bad request errors, if found
     const whodisBadRequestError = findWhodisBadRequestErrorInAxiosError({ axiosError: error });
     if (whodisBadRequestError) throw whodisBadRequestError; // if we found its a whodisBadRequestError, throw it
