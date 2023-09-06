@@ -1,10 +1,17 @@
 import { redactSignature, getUnauthedClaims } from 'simple-jwt-auth';
+
 import { TargetEnvironment } from './detectTargetEnvironment';
-import { getDomainFromUri } from './web/getDomainFromUri';
 import { getCurrentDomain } from './web/getCurrentDomain';
+import { getDomainFromUri } from './web/getDomainFromUri';
 
 export class UnusableTokenDetectedError extends Error {
-  constructor({ reason, target }: { reason: string; target: TargetEnvironment }) {
+  constructor({
+    reason,
+    target,
+  }: {
+    reason: string;
+    target: TargetEnvironment;
+  }) {
     const message = `Unusable token detected, for target env '${target}'. ${reason}`;
     super(message);
   }
@@ -24,13 +31,20 @@ export class UnusableTokenDetectedError extends Error {
  *
  * TODO: reference a wiki for each error that documents the solution
  */
-export const assertTokenLooksUsableForTargetEnv = async ({ token, target }: { token: string; target: TargetEnvironment }) => {
+export const assertTokenLooksUsableForTargetEnv = async ({
+  token,
+  target,
+}: {
+  token: string;
+  target: TargetEnvironment;
+}) => {
   // for native env
   if (target === TargetEnvironment.NATIVE) {
     // if its a signature redacted token, its not usable
     if (token === redactSignature({ token }))
       throw new UnusableTokenDetectedError({
-        reason: 'Token has a redacted signature, which means it cant be used for authentication',
+        reason:
+          'Token has a redacted signature, which means it cant be used for authentication',
         target,
       });
   }
@@ -40,11 +54,14 @@ export const assertTokenLooksUsableForTargetEnv = async ({ token, target }: { to
     // if the token is not signature redacted, then its vulnerable to XSS
     if (token !== redactSignature({ token }))
       throw new UnusableTokenDetectedError({
-        reason: 'Token does not have a redacted signature, which is a XSS vulnerability',
+        reason:
+          'Token does not have a redacted signature, which is a XSS vulnerability',
         target,
       });
     // if the audience of the token is not the same site as this website, it will fail CSRF checks
-    const tokenAudDomain = await getDomainFromUri(getUnauthedClaims({ token }).aud);
+    const tokenAudDomain = await getDomainFromUri(
+      getUnauthedClaims({ token }).aud,
+    );
     const currentDomain = await getCurrentDomain();
     if (tokenAudDomain !== currentDomain)
       throw new UnusableTokenDetectedError({

@@ -1,5 +1,5 @@
-import { refreshToken } from './refreshToken';
 import { WhodisBadRequestError } from './WhodisBadRequestError';
+import { refreshToken } from './refreshToken';
 
 describe('refreshToken', () => {
   it('should be able to hit the refresh token api', async () => {
@@ -10,6 +10,7 @@ describe('refreshToken', () => {
       });
       throw new Error('should not reach here');
     } catch (error) {
+      if (!(error instanceof Error)) throw error;
       expect(error).toBeInstanceOf(WhodisBadRequestError);
       expect(error.message).toContain('jwt.dir is invalid'); // since it doesn't have a real audience on that token
     }

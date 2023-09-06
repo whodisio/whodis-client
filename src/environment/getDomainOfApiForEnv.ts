@@ -8,7 +8,11 @@ import { ReservedDomainError } from './web/getDomainFromUri';
  * if targeting native, always `api.whodis.io`
  * if targeting web, then always `auth.${domain}` (i.e., a subdomain of current site) (seamlessly supported by whodis domain proxies)
  */
-export const getDomainOfApiForEnv = async ({ target }: { target: TargetEnvironment }) => {
+export const getDomainOfApiForEnv = async ({
+  target,
+}: {
+  target: TargetEnvironment;
+}) => {
   // native is always the normal api address
   if (target === TargetEnvironment.NATIVE) return 'api.whodis.io';
 

@@ -2,13 +2,13 @@ import axios, { AxiosError } from 'axios';
 import { createCache } from 'simple-in-memory-cache';
 import { withSimpleCaching } from 'with-simple-caching';
 
+import { isAxiosError } from '../../WhodisBadRequestError';
+
 export class ReservedDomainError extends Error {
   constructor({ hostname }: { hostname: string }) {
     super(`could not get domain from reserved hostname '${hostname}'.`);
   }
 }
-
-const isAxiosError = (error: Error): error is AxiosError => (error as any).isAxiosError;
 
 /**
  * get the domain from a uri, excluding subdomain
@@ -19,12 +19,20 @@ const getDomainFromHostname = withSimpleCaching(
   async (hostname: string): Promise<string> => {
     try {
       // if not, call whodis api to get the domain (note: we call the api because we dont want client to have to load the full public-suffix-list, which clocks in over 240kb: https://stackoverflow.com/a/23945027/3068233)
-      const response = await axios.post(`https://api.whodis.io/client/domain/extract`, { hostname }); // TODO: update this to a "get" method for cloudfront caching
+      const response = await axios.post(
+        `https://api.whodis.io/client/domain/extract`,
+        { hostname },
+      ); // TODO: update this to a "get" method for cloudfront caching
       const { domain } = response.data;
       return domain;
     } catch (error) {
+      if (!(error instanceof Error)) throw error;
+
       // if we can extract more details about this error, do so - to help the developer
-      if (isAxiosError(error) && error.response!.data.errorMessage.includes(`type 'RESERVED'`)) {
+      if (
+        isAxiosError(error) &&
+        (error as any).response!.data.errorMessage.includes(`type 'RESERVED'`)
+      ) {
         throw new ReservedDomainError({ hostname });
       }
 

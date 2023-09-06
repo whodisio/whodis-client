@@ -1,6 +1,9 @@
 import { redactSignature } from 'simple-jwt-auth';
 
-import { assertTokenLooksUsableForTargetEnv, UnusableTokenDetectedError } from './assertTokenLooksUsableForTargetEnv';
+import {
+  assertTokenLooksUsableForTargetEnv,
+  UnusableTokenDetectedError,
+} from './assertTokenLooksUsableForTargetEnv';
 import { TargetEnvironment } from './detectTargetEnvironment';
 import { getCurrentDomain } from './web/getCurrentDomain';
 
@@ -25,8 +28,11 @@ describe('assertTokenLooksUsableForTargetEnv', () => {
           token: exampleSignatureRedactedToken,
         });
       } catch (error) {
+        if (!(error instanceof Error)) throw error;
         expect(error).toBeInstanceOf(UnusableTokenDetectedError);
-        expect(error.message).toContain('Token has a redacted signature, which means it cant be used for authentication');
+        expect(error.message).toContain(
+          'Token has a redacted signature, which means it cant be used for authentication',
+        );
       }
     });
   });
@@ -45,8 +51,11 @@ describe('assertTokenLooksUsableForTargetEnv', () => {
           token: exampleToken,
         });
       } catch (error) {
+        if (!(error instanceof Error)) throw error;
         expect(error).toBeInstanceOf(UnusableTokenDetectedError);
-        expect(error.message).toContain('Token does not have a redacted signature, which is a XSS vulnerability');
+        expect(error.message).toContain(
+          'Token does not have a redacted signature, which is a XSS vulnerability',
+        );
       }
     });
     it('throws an error if the domain of jwt audience !== current domain', async () => {
@@ -57,8 +66,11 @@ describe('assertTokenLooksUsableForTargetEnv', () => {
           token: exampleSignatureRedactedToken,
         });
       } catch (error) {
+        if (!(error instanceof Error)) throw error;
         expect(error).toBeInstanceOf(UnusableTokenDetectedError);
-        expect(error.message).toContain('Domain of jwt audience !== current domain, which means it cant be used for authentication by this site');
+        expect(error.message).toContain(
+          'Domain of jwt audience !== current domain, which means it cant be used for authentication by this site',
+        );
       }
     });
   });

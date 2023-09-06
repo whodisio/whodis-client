@@ -1,8 +1,17 @@
 import dotenv from 'dotenv';
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
-import { askAuthChallenge, ChallengeGoal, ChallengeType, ContactMethodChannel, OidcIdentityProvider } from './askAuthChallenge';
-import { WhodisBadRequestError, WhodisAuthGoalError } from './WhodisBadRequestError';
+import {
+  WhodisBadRequestError,
+  WhodisAuthGoalError,
+} from './WhodisBadRequestError';
+import {
+  askAuthChallenge,
+  ChallengeGoal,
+  ChallengeType,
+  ContactMethodChannel,
+  OidcIdentityProvider,
+} from './askAuthChallenge';
 
 dotenv.config();
 
@@ -25,12 +34,15 @@ describe('askAuthChallenge', () => {
     } catch (error) {
       if (!(error instanceof Error)) throw error;
       expect(error).toBeInstanceOf(WhodisBadRequestError);
-      expect(error.message).toContain('clientUuid does not provide access to this directory');
+      expect(error.message).toContain(
+        'clientUuid does not provide access to this directory',
+      );
     }
   });
   it('should throw a WhodisAuthGoalError when a non-user attempts to login', async () => {
     // grab directory credentials and real contact method to send from env variables; they're not sensitive, but doesn't feel right to hardcode :shrug:
-    const directoryUuid = process.env.ASK_AUTH_CHALLENGE_EXAMPLE_DIRECTORY_UUID!;
+    const directoryUuid =
+      process.env.ASK_AUTH_CHALLENGE_EXAMPLE_DIRECTORY_UUID!;
     expect(typeof directoryUuid).toEqual('string'); // sanity check
     const clientUuid = process.env.ASK_AUTH_CHALLENGE_EXAMPLE_CLIENT_TOKEN!;
     expect(typeof clientUuid).toEqual('string'); // sanity check
@@ -52,12 +64,15 @@ describe('askAuthChallenge', () => {
     } catch (error) {
       if (!(error instanceof Error)) throw error;
       expect(error).toBeInstanceOf(WhodisAuthGoalError);
-      expect(error.message).toContain('user does not exist in directory for contact method, cant login');
+      expect(error.message).toContain(
+        'user does not exist in directory for contact method, cant login',
+      );
     }
   });
   it('should be able to get a confirmation code challenge successfully', async () => {
     // grab directory credentials and real contact method to send from env variables; they're not sensitive, but doesn't feel right to hardcode :shrug:
-    const directoryUuid = process.env.ASK_AUTH_CHALLENGE_EXAMPLE_DIRECTORY_UUID!;
+    const directoryUuid =
+      process.env.ASK_AUTH_CHALLENGE_EXAMPLE_DIRECTORY_UUID!;
     expect(typeof directoryUuid).toEqual('string'); // sanity check
     const clientUuid = process.env.ASK_AUTH_CHALLENGE_EXAMPLE_CLIENT_TOKEN!;
     expect(typeof clientUuid).toEqual('string'); // sanity check
@@ -83,7 +98,8 @@ describe('askAuthChallenge', () => {
   });
   it('should be able to get an oidc authcode challenge successfully', async () => {
     // grab directory credentials and real contact method to send from env variables; they're not sensitive, but doesn't feel right to hardcode :shrug:
-    const directoryUuid = process.env.ASK_AUTH_CHALLENGE_EXAMPLE_DIRECTORY_UUID!;
+    const directoryUuid =
+      process.env.ASK_AUTH_CHALLENGE_EXAMPLE_DIRECTORY_UUID!;
     expect(typeof directoryUuid).toEqual('string'); // sanity check
     const clientUuid = process.env.ASK_AUTH_CHALLENGE_EXAMPLE_CLIENT_TOKEN!;
     expect(typeof clientUuid).toEqual('string'); // sanity check

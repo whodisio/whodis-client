@@ -1,7 +1,7 @@
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
-import { answerAuthChallenge } from './answerAuthChallenge';
 import { WhodisBadRequestError } from './WhodisBadRequestError';
+import { answerAuthChallenge } from './answerAuthChallenge';
 
 describe('answerAuthChallenge', () => {
   it('should be able to hit the answer auth challenge api', async () => {
@@ -12,6 +12,7 @@ describe('answerAuthChallenge', () => {
       });
       throw new Error('should not reach here');
     } catch (error) {
+      if (!(error instanceof Error)) throw error;
       expect(error).toBeInstanceOf(WhodisBadRequestError);
       expect(error.message).toContain('challenge does not exist');
     }
