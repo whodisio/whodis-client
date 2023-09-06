@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.1](https://github.com/whodisio/whodis-client/compare/v0.11.0...v0.11.1) (2023-09-06)
+
+
+### Bug Fixes
+
+* **cicd:** ensure publish isnt blocked ([1feebad](https://github.com/whodisio/whodis-client/commit/1feebad847768e95fd0d3d9122a619cd10e62413))
+
 ## [0.11.0](https://github.com/whodisio/whodis-client/compare/v0.10.2...v0.11.0) (2023-09-06)
 
 
