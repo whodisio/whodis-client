@@ -115,6 +115,10 @@ describe('askAuthChallenge', () => {
       details: {
         provider: OidcIdentityProvider.APPLE,
         redirectUri: '__redirect_uri__',
+        destinationUri: {
+          onError: '__on_error_uri',
+          onSuccess: '__on_error_uri',
+        },
       },
     });
 

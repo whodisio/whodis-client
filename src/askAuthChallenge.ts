@@ -101,6 +101,24 @@ export interface ChallengeTypeOidcAuthcodeDetails {
    * - this is used when exchanging the authcode
    */
   redirectUri: string;
+
+  /**
+   * the destination uri to which we were asked to redirect the user after the identity-provider responds
+   *
+   * note
+   * - this is used to redirect the user to their final destination
+   */
+  destinationUri: {
+    /**
+     * the destination to redirect the user to when authorization is successful
+     */
+    onSuccess: string;
+
+    /**
+     * the destination to redirect the user to when authorization is not successful
+     */
+    onError: string;
+  };
 }
 
 /**
