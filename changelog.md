@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.2](https://github.com/whodisio/whodis-client/compare/v0.11.1...v0.11.2) (2023-09-07)
+
+
+### Bug Fixes
+
+* **oidc:** add destinationUri onSuccess and onError to challenge details ([1b0f6dc](https://github.com/whodisio/whodis-client/commit/1b0f6dcd4f139a9c97e948ee9b5f07c775430481))
+
 ## [0.11.1](https://github.com/whodisio/whodis-client/compare/v0.11.0...v0.11.1) (2023-09-06)
 
 
