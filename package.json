@@ -2,7 +2,7 @@
   "name": "whodis-client",
   "author": "whodis",
   "description": "A simple client for easy, typed interactions with the whodis.io api in clientside/insecure environments",
-  "version": "0.11.2",
+  "version": "0.11.3",
   "repository": "whodisio/whodis-client",
   "homepage": "https://github.com/whodisio/whodis-client",
   "keywords": [
