@@ -9,7 +9,7 @@ import {
   askAuthChallenge,
   ChallengeGoal,
   ChallengeType,
-  ContactMethodChannel,
+  ContactMethodType,
   OidcIdentityProvider,
 } from './askAuthChallenge';
 
@@ -25,7 +25,7 @@ describe('askAuthChallenge', () => {
         type: ChallengeType.CONFIRMATION_CODE,
         details: {
           contactMethod: {
-            channel: ContactMethodChannel.PHONE,
+            type: ContactMethodType.PHONE,
             address: '+15555555555',
           },
         },
@@ -56,7 +56,7 @@ describe('askAuthChallenge', () => {
         type: ChallengeType.CONFIRMATION_CODE,
         details: {
           contactMethod: {
-            channel: ContactMethodChannel.EMAIL,
+            type: ContactMethodType.EMAIL,
             address: `${uuid()}@gmail.com`,
           },
         },
@@ -87,7 +87,7 @@ describe('askAuthChallenge', () => {
       type: ChallengeType.CONFIRMATION_CODE,
       details: {
         contactMethod: {
-          channel: ContactMethodChannel.EMAIL,
+          type: ContactMethodType.EMAIL,
           address: emailAddress,
         },
       },

@@ -43,12 +43,12 @@ export enum ChallengeType {
    */
   OIDC_AUTHCODE = 'OIDC_AUTHCODE',
 }
-export enum ContactMethodChannel {
+export enum ContactMethodType {
   'PHONE' = 'PHONE',
   'EMAIL' = 'EMAIL',
 }
 export interface ContactMethod {
-  channel: ContactMethodChannel;
+  type: ContactMethodType;
   address: string;
 }
 

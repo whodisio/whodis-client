@@ -17,7 +17,7 @@ export { WhodisAuthTokenClaims } from './WhodisAuthTokenClaims';
 export {
   ChallengeGoal,
   ChallengeType,
-  ContactMethodChannel,
+  ContactMethodType,
   OidcIdentityProvider,
   ContactMethod,
   ChallengeTypeDetails,
