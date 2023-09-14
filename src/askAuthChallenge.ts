@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { PickOne } from 'type-fns';
 
 import {
   findWhodisBadRequestErrorInAxiosError,
@@ -128,7 +129,29 @@ export type ChallengeTypeDetails =
   | ChallengeTypeConfirmationCodeDetails
   | ChallengeTypeOidcAuthcodeDetails;
 
-export const askAuthChallenge = async ({
+// TODO: stop using "function" when typescript supports type overloading for arrow functions
+export async function askAuthChallenge(input: {
+  directoryUuid: string;
+  clientUuid: string;
+  goal: ChallengeGoal;
+  type: ChallengeType.CONFIRMATION_CODE;
+  details: ChallengeTypeConfirmationCodeDetails;
+}): Promise<{ challengeUuid: string; challengeCode: null }>;
+export async function askAuthChallenge(input: {
+  directoryUuid: string;
+  clientUuid: string;
+  goal: ChallengeGoal;
+  type: ChallengeType.OIDC_AUTHCODE;
+  details: ChallengeTypeOidcAuthcodeDetails;
+}): Promise<{ challengeHash: string; challengeCode: string }>;
+
+/**
+ * ask to be granted an auth challenge
+ *
+ * note
+ * - uses type overloads to narrow to the correct details and output for each challenge type
+ */
+export async function askAuthChallenge({
   directoryUuid,
   clientUuid,
   goal,
@@ -140,7 +163,14 @@ export const askAuthChallenge = async ({
   goal: ChallengeGoal;
   type: ChallengeType;
   details: ChallengeTypeDetails;
-}): Promise<{ challengeUuid: string }> => {
+}): Promise<
+  PickOne<{
+    challengeUuid: string;
+    challengeHash: string;
+  }> & {
+    challengeCode?: string | null;
+  }
+> {
   const target = detectTargetEnvironment();
   const hostname = await getDomainOfApiForEnv({ target });
   try {
@@ -148,7 +178,15 @@ export const askAuthChallenge = async ({
       `https://${hostname}/user/challenge/ask`,
       { directoryUuid, clientUuid, goal, type, details },
     );
-    return { challengeUuid: data.challengeUuid };
+    if (data.challengeHash)
+      return {
+        challengeHash: data.challengeHash,
+        challengeCode: data.challengeCode ?? null,
+      };
+    return {
+      challengeUuid: data.challengeUuid,
+      challengeCode: data.challengeCode ?? null,
+    };
   } catch (error) {
     if (!(error instanceof Error)) throw error;
     if (!isAxiosError(error)) throw error;
@@ -169,4 +207,4 @@ export const askAuthChallenge = async ({
     // otherwise, just pass the error up as is - there's nothing helpful we can do
     throw error;
   }
-};
+}

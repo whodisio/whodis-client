@@ -107,7 +107,7 @@ describe('askAuthChallenge', () => {
     expect(typeof emailAddress).toEqual('string'); // sanity check
 
     // ask the challenge
-    const { challengeUuid } = await askAuthChallenge({
+    const { challengeHash, challengeCode } = await askAuthChallenge({
       directoryUuid,
       clientUuid,
       goal: ChallengeGoal.SIGNUP,
@@ -123,6 +123,7 @@ describe('askAuthChallenge', () => {
     });
 
     // expect challengeUuid to be defined
-    expect(challengeUuid.length).toEqual(36); // sanity check uuid length
+    expect(challengeHash.length).toEqual(64 + 4); // sanity check uuid length
+    expect(challengeCode.length).toEqual(86); // sanity check uuid length
   });
 });
