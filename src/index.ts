@@ -4,6 +4,7 @@ export { answerAuthChallenge } from './answerAuthChallenge';
 export { isTokenRefreshable } from './isTokenRefreshable';
 export { refreshToken } from './refreshToken';
 export { isTokenExpired } from './isTokenExpired';
+export { getAuthDomain } from './getAuthDomain';
 
 // errors and types
 export {
