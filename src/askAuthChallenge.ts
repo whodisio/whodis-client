@@ -177,6 +177,7 @@ export async function askAuthChallenge({
     const { data } = await axios.post(
       `https://${hostname}/user/challenge/ask`,
       { directoryUuid, clientUuid, goal, type, details },
+      { withCredentials: true }, // with credentials to support receiving cookies; required for web env oidc
     );
     if (data.challengeHash)
       return {
