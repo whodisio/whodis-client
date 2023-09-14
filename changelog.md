@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.6](https://github.com/whodisio/whodis-client/compare/v0.11.5...v0.11.6) (2023-09-14)
+
+
+### Bug Fixes
+
+* **oidc:** ask auth challenge with credentials for origination cookie ([33dfae3](https://github.com/whodisio/whodis-client/commit/33dfae37d28bcdd653f7ca0a83d84f5e503ffcd2))
+
 ## [0.11.5](https://github.com/whodisio/whodis-client/compare/v0.11.4...v0.11.5) (2023-09-14)
 
 
