@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.4](https://github.com/whodisio/whodis-client/compare/v0.11.3...v0.11.4) (2023-09-14)
+
+
+### Bug Fixes
+
+* **oidc:** expose hash and code grants from challenge ([3827798](https://github.com/whodisio/whodis-client/commit/3827798b6ba05a27b7ed90e46f1b5c5a750060fa))
+
 ## [0.11.3](https://github.com/whodisio/whodis-client/compare/v0.11.2...v0.11.3) (2023-09-08)
 
 
