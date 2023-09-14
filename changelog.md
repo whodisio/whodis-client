@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.5](https://github.com/whodisio/whodis-client/compare/v0.11.4...v0.11.5) (2023-09-14)
+
+
+### Bug Fixes
+
+* **contract:** expose getAuthDomain method ([0a2cd4a](https://github.com/whodisio/whodis-client/commit/0a2cd4a5774a7e34cf22503bd96baf520f9fe521))
+
 ## [0.11.4](https://github.com/whodisio/whodis-client/compare/v0.11.3...v0.11.4) (2023-09-14)
 
 
