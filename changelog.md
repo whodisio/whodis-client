@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.7](https://github.com/whodisio/whodis-client/compare/v0.11.6...v0.11.7) (2023-09-16)
+
+
+### Bug Fixes
+
+* **oidc:** update test to expect new challenge code length ([0b1e2d6](https://github.com/whodisio/whodis-client/commit/0b1e2d60070642c89f63e7ad92ce2afcc036eb46))
+
 ## [0.11.6](https://github.com/whodisio/whodis-client/compare/v0.11.5...v0.11.6) (2023-09-14)
 
 
