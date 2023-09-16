@@ -19,9 +19,11 @@ export {
   ChallengeGoal,
   ChallengeType,
   ContactMethodType,
-  OidcIdentityProvider,
   ContactMethod,
   ChallengeTypeDetails,
   ChallengeTypeOidcAuthcodeDetails,
   ChallengeTypeConfirmationCodeDetails,
 } from './askAuthChallenge';
+
+// forward this enum for convenience
+export { OidcIdentityProvider } from 'simple-oidc-auth';

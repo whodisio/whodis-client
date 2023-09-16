@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { OidcIdentityProvider } from 'simple-oidc-auth';
 import { PickOne } from 'type-fns';
 
 import {
@@ -11,25 +12,31 @@ import { getDomainOfApiForEnv } from './environment/getDomainOfApiForEnv';
 
 export enum ChallengeGoal {
   /**
-   * create new user with a new contact-method
+   * create new user
    */
   SIGNUP = 'SIGNUP',
 
   /**
-   * access an existing user with an existing contact-method
+   * access an existing user
    */
   LOGIN = 'LOGIN',
 
   /**
-   * add a new contact-method to an existing, authenticated user
+   * signup or login a user
+   */
+  SIGNIN = 'SIGNIN',
+
+  /**
+   * add a new credentials to a user
    */
   ADD = 'ADD',
 
   /**
-   * prove control of a contact-method, without associating to a user
+   * prove control of credentials without assigning to user
    */
   PROVE = 'PROVE',
 }
+
 export enum ChallengeType {
   /**
    * a confirmation code sent to a contact method
@@ -51,29 +58,6 @@ export enum ContactMethodType {
 export interface ContactMethod {
   type: ContactMethodType;
   address: string;
-}
-
-/**
- * the identity provider which authenticates the user and issues the tokens via oidc flows
- */
-export enum OidcIdentityProvider {
-  /**
-   * ref
-   * - https://developers.google.com/identity/openid-connect/openid-connect
-   */
-  GOOGLE = 'GOOGLE',
-
-  /**
-   * ref
-   * - https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_js/incorporating_sign_in_with_apple_into_other_platforms
-   */
-  APPLE = 'APPLE',
-
-  /**
-   * ref
-   * - https://developers.facebook.com/docs/facebook-login/guides/advanced/manual-flow
-   */
-  FACEBOOK = 'FACEBOOK',
 }
 
 /**
