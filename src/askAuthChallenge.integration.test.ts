@@ -124,6 +124,6 @@ describe('askAuthChallenge', () => {
 
     // expect challengeUuid to be defined
     expect(challengeHash.length).toEqual(64 + 4); // sanity check uuid length
-    expect(challengeCode.length).toEqual(86); // sanity check uuid length
+    expect(challengeCode.length).toEqual(43); // sanity check uuid length
   });
 });
