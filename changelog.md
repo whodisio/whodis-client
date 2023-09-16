@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.8](https://github.com/whodisio/whodis-client/compare/v0.11.7...v0.11.8) (2023-09-16)
+
+
+### Bug Fixes
+
+* **types:** support signin challenge goal enum val ([177f31a](https://github.com/whodisio/whodis-client/commit/177f31a6a68bb1812f3a9e16c6caad220380ea85))
+
 ## [0.11.7](https://github.com/whodisio/whodis-client/compare/v0.11.6...v0.11.7) (2023-09-16)
 
 
