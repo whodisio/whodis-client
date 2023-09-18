@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import { OidcIdentityProvider } from 'simple-oidc-auth';
 import { v4 as uuid } from 'uuid';
 
 import {
@@ -10,7 +11,6 @@ import {
   ChallengeGoal,
   ChallengeType,
   ContactMethodType,
-  OidcIdentityProvider,
 } from './askAuthChallenge';
 
 dotenv.config();
