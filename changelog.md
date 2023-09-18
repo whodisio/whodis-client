@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.9](https://github.com/whodisio/whodis-client/compare/v0.11.8...v0.11.9) (2023-09-18)
+
+
+### Bug Fixes
+
+* **types:** import oidc identity provider from simple-oidc-auth ([5d3fb54](https://github.com/whodisio/whodis-client/commit/5d3fb5489eca359ac491d0f3b0c387f157f71ece))
+
 ## [0.11.8](https://github.com/whodisio/whodis-client/compare/v0.11.7...v0.11.8) (2023-09-16)
 
 
