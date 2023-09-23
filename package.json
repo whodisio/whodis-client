@@ -61,7 +61,7 @@
     "commitlint": "^17.7.1",
     "simple-in-memory-cache": "^0.1.0",
     "simple-jwt-auth": "^0.9.1",
-    "simple-oidc-auth": "^1.0.2",
+    "simple-oidc-auth": "^1.1.2",
     "type-fns": "0.8.1",
     "uuid": "9.0.0",
     "with-simple-caching": "^0.1.1"
