@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.10](https://github.com/whodisio/whodis-client/compare/v0.11.9...v0.11.10) (2023-09-23)
+
+
+### Bug Fixes
+
+* **deps:** bump simple-oidc-auth dep for commonjs backwardscompat ([8436380](https://github.com/whodisio/whodis-client/commit/84363805a4250f7c3738b2cc758d79c052129c40))
+
 ## [0.11.9](https://github.com/whodisio/whodis-client/compare/v0.11.8...v0.11.9) (2023-09-18)
 
 
