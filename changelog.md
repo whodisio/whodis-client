@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.11](https://github.com/whodisio/whodis-client/compare/v0.11.10...v0.11.11) (2023-09-24)
+
+
+### Bug Fixes
+
+* **deps:** bump simple-jwt-auth to eliminate buffer missing error ([3541ef6](https://github.com/whodisio/whodis-client/commit/3541ef6f850f2e1e5a741d4cd9d1758ebb3e763d))
+
 ## [0.11.10](https://github.com/whodisio/whodis-client/compare/v0.11.9...v0.11.10) (2023-09-23)
 
 
