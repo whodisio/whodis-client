@@ -13,8 +13,12 @@ import { isTokenRefreshable } from './isTokenRefreshable';
 
 export const refreshToken = async ({
   token: tokenToRefresh,
+  override,
 }: {
   token: string;
+  override?: {
+    hostname?: string;
+  };
 }): Promise<{ token: string }> => {
   // check that the token is not already ttled out and not refreshable
   if (!isTokenRefreshable({ token: tokenToRefresh }))
@@ -22,7 +26,8 @@ export const refreshToken = async ({
 
   // determine target environment
   const target = detectTargetEnvironment();
-  const hostname = await getDomainOfApiForEnv({ target });
+  const hostname =
+    override?.hostname ?? (await getDomainOfApiForEnv({ target })); // allow the user to override the hostname, if they know what they're doing
 
   // if token is still refreshable, try and refresh it
   try {

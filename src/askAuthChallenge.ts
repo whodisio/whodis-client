@@ -120,6 +120,7 @@ export async function askAuthChallenge(input: {
   goal: ChallengeGoal;
   type: ChallengeType.CONFIRMATION_CODE;
   details: ChallengeTypeConfirmationCodeDetails;
+  override?: { hostname?: string };
 }): Promise<{ challengeUuid: string; challengeCode: null }>;
 export async function askAuthChallenge(input: {
   directoryUuid: string;
@@ -141,12 +142,16 @@ export async function askAuthChallenge({
   goal,
   type,
   details,
+  override,
 }: {
   directoryUuid: string;
   clientUuid: string;
   goal: ChallengeGoal;
   type: ChallengeType;
   details: ChallengeTypeDetails;
+  override?: {
+    hostname?: string;
+  };
 }): Promise<
   PickOne<{
     challengeUuid: string;
@@ -156,7 +161,8 @@ export async function askAuthChallenge({
   }
 > {
   const target = detectTargetEnvironment();
-  const hostname = await getDomainOfApiForEnv({ target });
+  const hostname =
+    override?.hostname ?? (await getDomainOfApiForEnv({ target })); // allow the user to override the hostname, if they know what they're doing
   try {
     const { data } = await axios.post(
       `https://${hostname}/user/challenge/ask`,

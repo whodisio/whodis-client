@@ -12,9 +12,13 @@ import { getDomainOfApiForEnv } from './environment/getDomainOfApiForEnv';
 export const answerAuthChallenge = async ({
   challengeUuid,
   challengeAnswer,
+  override,
 }: {
   challengeUuid: string;
   challengeAnswer: string;
+  override?: {
+    hostname?: string;
+  };
 }): Promise<{
   /**
    * returns `null` if the challenge was a `PROVE` challenge
@@ -22,7 +26,8 @@ export const answerAuthChallenge = async ({
   token: string | null;
 }> => {
   const target = detectTargetEnvironment();
-  const hostname = await getDomainOfApiForEnv({ target });
+  const hostname =
+    override?.hostname ?? (await getDomainOfApiForEnv({ target })); // allow the user to override the hostname, if they know what they're doing
   try {
     const { data } = await axios.post(
       `https://${hostname}/user/challenge/answer`,
