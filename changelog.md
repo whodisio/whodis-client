@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.0](https://github.com/whodisio/whodis-client/compare/v0.11.11...v0.12.0) (2024-04-13)
+
+
+### Features
+
+* **override:** support override of hostname for advanced usecases ([6130132](https://github.com/whodisio/whodis-client/commit/613013212cc1cde370225c12b9183019605e6d65))
+
 ## [0.11.11](https://github.com/whodisio/whodis-client/compare/v0.11.10...v0.11.11) (2023-09-24)
 
 
